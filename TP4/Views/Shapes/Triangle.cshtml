@@ -1,0 +1,39 @@
+@model Triangle
+
+<h2>Triangle</h2>
+
+<div class="shape-container">
+    <svg id="shapesvg" width="@Model.GetSideLength()" height="@(Model.GetSideLength() * 0.866)">
+        <polygon points="0,0 @Model.GetSideLength(),0 0,@Model.GetSideLength()"
+                 fill="@Model.Color" />
+    </svg>
+</div>
+
+<form method="post">
+    <div class="form-group">
+        <label for="Size">Taille:</label>
+        <select name="Size" class="form-control">
+            <option value="small" selected="@(Model.Size == "small")">Petit</option>
+            <option value="medium" selected="@(Model.Size == "medium")">Moyen</option>
+            <option value="large" selected="@(Model.Size == "large")">Grand</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="Color">Couleur:</label>
+        <input type="color" name="Color" value="@Model.Color" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Appliquer</button>
+</form>
+
+<div class="mt-3">
+    <button class="btn btn-secondary" onclick="downloadAsSVG(document.getElementById('shapesvg'), 'triangle.svg')">
+        Télécharger en SVG
+    </button>
+    <button class="btn btn-secondary" onclick="downloadAsPNG(document.getElementById('shapesvg'), 'triangle.svg')">
+        Télécharger en PNG
+    </button>
+</div>
+
+@section Scripts {
+    <script src="~/js/shapeDownload.js"></script>
+}
